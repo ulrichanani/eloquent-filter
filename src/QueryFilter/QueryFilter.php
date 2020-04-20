@@ -65,6 +65,6 @@ class QueryFilter
      */
     public function filters(): array
     {
-        return $this->request->all();
+        return $this->request->input('filters', []);
     }
 }
