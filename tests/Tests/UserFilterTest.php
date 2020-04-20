@@ -210,7 +210,7 @@ class UserFilterTest extends TestCase
         $this->__init();
         $data = [
             'count_posts' => [
-                'operator' => '>',
+                'op' => '>',
                 'value'    => 35,
             ],
         ];
@@ -284,7 +284,7 @@ class UserFilterTest extends TestCase
         $this->__init();
         $data = [
             'username' => [
-                'operator' => '!=',
+                'op' => '!=',
                 'value'    => 'ali',
             ],
         ];

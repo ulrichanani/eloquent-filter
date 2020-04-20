@@ -57,7 +57,7 @@ class QueryFilterBuilder
      */
     public function whereByOpt($field, $params)
     {
-        $opt = $params[0]['operator'];
+        $opt = $params[0]['op'];
         $value = $params[0]['value'];
         $this->builder->where("$field", "$opt", $value);
     }

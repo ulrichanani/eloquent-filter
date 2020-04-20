@@ -118,17 +118,17 @@ SELECT ... WHERE ... username = 'ali' OR username = 'ali22' AND family = 'ahmadi
 You can set any operator mysql in query string.
 
 ```
-/users/list?count_posts[operator]=>&count_posts[value]=35
+/users/list?count_posts[op]=>&count_posts[value]=35
 
 SELECT ... WHERE ... count_posts > 35
 ```
 ```
-/users/list?username[operator]=!=&username[value]=ali
+/users/list?username[op]=!=&username[value]=ali
 
 SELECT ... WHERE ... username != 'ali'
 ```
 ```
-/users/list?count_posts[operator]=<&count_posts[value]=25
+/users/list?count_posts[op]=<&count_posts[value]=25
 
 SELECT ... WHERE ... count_posts < 25
 ```
@@ -168,7 +168,7 @@ SELECT ... WHERE ... created_at BETWEEN '2019-01-01 10:11:46' AND '2019-02-06 10
 
 ****Advanced Where****
 ```
-/users/list?count_posts[operator]=>&count_posts[value]=10&username[]=ali&username[]=mehdi&family=ahmadi&created_at[start]=2016/05/01&created_at[end]=2020/10/01
+/users/list?count_posts[op]=>&count_posts[value]=10&username[]=ali&username[]=mehdi&family=ahmadi&created_at[start]=2016/05/01&created_at[end]=2020/10/01
 &f_params[orderBy][field]=id&f_params[orderBy][type]=ASC
 
 select * from `users` where `count_posts` > 10 and `username` in ('ali', 'mehdi') and 

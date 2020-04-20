@@ -52,7 +52,7 @@ class QueryBuilder
             $this->queryFilterBuilder->whereBetween($field, $params);
         } elseif ($field == 'f_params') {
             $this->__buildQueryWithNewParams($field, $params[0]);
-        } elseif (!empty($params[0]['operator']) && !empty($params[0]['value'])) {
+        } elseif (!empty($params[0]['op']) && !empty($params[0]['value'])) {
             $this->queryFilterBuilder->whereByOpt($field, $params);
         } elseif (is_array($params[0])) {
             $this->queryFilterBuilder->whereIn("$field", $params[0]);
