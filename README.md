@@ -14,12 +14,6 @@ A package for filter data of models by query string.Easy to use and full dynamic
 
 The Eloquent Filter is stable on PHP 7.1,7.2,7.3,7.4 and Laravel 5.x,6.x,7.x.
 
-## Installation
-
-Run the Composer command
-
-      $ composer require mehdi-fathi/eloquent-filter
-
 ## Basic Usage
 
 Add Filterable trait to your models and set fields that you will want filter in whitelist.You can override this method in your models.
@@ -97,19 +91,19 @@ You just pass data blade form to query string or generate query string in contro
 
 **Simple Where**
 ```
-/users/list?email=mehdifathi.developer@gmail.com
+/users/list?filters[email]=mehdifathi.developer@gmail.com
 
 SELECT ... WHERE ... email = 'mehdifathi.developer@gmail.com'
 ```
 
 ```
-/users/list?first_name=mehdi&last_name=fathi
+/users/list?filters[first_name]=mehdi&filters[last_name]=fathi
 
 SELECT ... WHERE ... first_name = 'mehdi' AND last_name = 'fathi'
 ```
 
 ```
-/users/list?username[]=ali&username[]=ali22&family=ahmadi
+/users/list?filters[username][]=ali&filters[username][]=ali22&filters[family]=ahmadi
 
 SELECT ... WHERE ... username = 'ali' OR username = 'ali22' AND family = 'ahmadi'
 ```
@@ -118,17 +112,17 @@ SELECT ... WHERE ... username = 'ali' OR username = 'ali22' AND family = 'ahmadi
 You can set any operator mysql in query string.
 
 ```
-/users/list?count_posts[op]=>&count_posts[value]=35
+/users/list?filters[count_posts][op]=>&filters[count_posts][value]=35
 
 SELECT ... WHERE ... count_posts > 35
 ```
 ```
-/users/list?username[op]=!=&username[value]=ali
+/users/list?filters[username][op]=!=&filters[username][value]=ali
 
 SELECT ... WHERE ... username != 'ali'
 ```
 ```
-/users/list?count_posts[op]=<&count_posts[value]=25
+/users/list?filters[count_posts][op]=<&filters[count_posts][value]=25
 
 SELECT ... WHERE ... count_posts < 25
 ```
@@ -137,13 +131,13 @@ SELECT ... WHERE ... count_posts < 25
 
 You can set special params `limit` and `orderBy` in query string for make query by that.
 ```
-/users/list?f_params[limit]=1
+/users/list?filters[f_params][limit]=1
 
 SELECT ... WHERE ... order by `id` desc limit 1 offset 0
 ```
 
 ```
-/users/list?f_params[orderBy][field]=id&f_params[orderBy][type]=ASC
+/users/list?filters[f_params][orderBy][field]=id&filters[f_params][orderBy][type]=ASC
 
 SELECT ... WHERE ... order by `id` ASC limit 10 offset 0
 ```
@@ -153,7 +147,7 @@ If you are going to make query whereBetween.You must fill keys `start` and `end`
 you can set it on query string as you know.
 
 ```
-/users/list?created_at[start]=2016/05/01&created_at[end]=2017/10/01
+/users/list?filters[created_at][start]=2016/05/01&filters[created_at][end]=2017/10/01
 
 SELECT ... WHERE ... created_at BETWEEN '2016/05/01' AND '2017/10/01'
 ```
@@ -161,15 +155,15 @@ SELECT ... WHERE ... created_at BETWEEN '2016/05/01' AND '2017/10/01'
 Also you can set jallali date in your params and eloquent-filter will detect jallali date and convert to gregorian then eloquent-filter generate new query. You just pass a jallali date by param
 
 ```
-/users/list?created_at[start]=1397/10/11 10:11:46&created_at[end]=1397/11/17 10:11:46
+/users/list?filters[created_at][start]=1397/10/11 10:11:46&filters[created_at][end]=1397/11/17 10:11:46
 
 SELECT ... WHERE ... created_at BETWEEN '2019-01-01 10:11:46' AND '2019-02-06 10:11:46'
 ``` 
 
 ****Advanced Where****
 ```
-/users/list?count_posts[op]=>&count_posts[value]=10&username[]=ali&username[]=mehdi&family=ahmadi&created_at[start]=2016/05/01&created_at[end]=2020/10/01
-&f_params[orderBy][field]=id&f_params[orderBy][type]=ASC
+/users/list?filters[count_posts][op]=>&filters[count_posts][value]=10&filters[username][]=ali&filters[username][]=mehdi&filters[family]=ahmadi&filters[created_at][start]=2016/05/01&filters[created_at][end]=2020/10/01
+&filters[f_params][orderBy][field]=id&filters[f_params][orderBy][type]=ASC
 
 select * from `users` where `count_posts` > 10 and `username` in ('ali', 'mehdi') and 
 `family` = ahmadi and `created_at` between '2016/05/01' and '2020/10/01' order by 'id' asc limit 10 offset 0
@@ -205,7 +199,7 @@ trait usersFilter
 Note that fields of query string be same methods of trait.Use trait in your model:
 
 ```
-/users/list?username_like=a
+/users/list?filters[username_like]=a
 
 select * from `users` where `username` like %a% order by `id` desc limit 10 offset 0
 ```
