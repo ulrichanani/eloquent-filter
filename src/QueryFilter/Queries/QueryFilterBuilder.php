@@ -59,6 +59,11 @@ class QueryFilterBuilder
     {
         $opt = $params[0]['op'];
         $value = $params[0]['value'];
+
+        if('like' == strtolower($opt)) {
+            $value = '%' . $value . '%';
+        }
+
         $this->builder->where("$field", "$opt", $value);
     }
 
