@@ -53,7 +53,7 @@ class ModelFilters extends QueryFilter
         if ($output = $this->checkSetWhiteListFields($field)) {
             return $output;
         } elseif ($field == 'f_params') {
-            return true;
+            return false;
         } elseif ($this->checkModelHasOverrideMethod($field)) {
             return true;
         }

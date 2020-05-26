@@ -22,6 +22,21 @@ trait Filterable
         return $filters->apply($query, $this->getTable());
     }
 
+    public function scopeInclude($query, $includes): \Illuminate\Database\Eloquent\Builder
+    {
+        return $query->with($includes);
+    }
+
+    public function scopeSort($query, $sorts): \Illuminate\Database\Eloquent\Builder
+    {
+        foreach($sorts as $field => $direction) {
+            $direction = in_array(Str::lower($direction), ['asc', 'desc']) ? $direction : 'asc';
+            $query->orderBy($field, $direction);
+        }
+
+        return $query;
+    }
+
     /**
      * @return mixed
      */
@@ -48,20 +63,5 @@ trait Filterable
     public static function setWhiteListFilter(array $array)
     {
         self::$whiteListFilter = $array;
-    }
-
-    public function scopeInclude($query, $includes): \Illuminate\Database\Eloquent\Builder
-    {
-        return $query->with($includes);
-    }
-
-    public function scopeSort($query, $sorts): \Illuminate\Database\Eloquent\Builder
-    {
-        foreach($sorts as $field => $direction) {
-            $direction = in_array(Str::lower($direction), ['asc', 'desc']) ? $direction : 'asc';
-            $query->orderBy($field, $direction);
-        }
-        
-        return $query;
     }
 }
